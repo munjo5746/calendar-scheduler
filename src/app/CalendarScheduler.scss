@@ -25,14 +25,12 @@
             > .time-column {
                 flex: 1;
                 text-align: center;
+                border-left: 1px solid lightgray;
 
                 > .timeslot {
-                    &.header {
-                        height: 4em;
-                        line-height: 4em;
-                    }
-
-                    border-bottom: 1px dashed lightgray;
+                    height: 4em;
+                    line-height: 4em;
+                    border-bottom: 1px solid lightgray;
                 }
             }
         }
