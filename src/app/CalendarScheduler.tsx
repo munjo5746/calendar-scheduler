@@ -9,6 +9,13 @@ const Calendar: React.FC = () => {
         return dateFns.add(new Date(), { days: idx });
     });
 
+    const START_TIME = 6;
+    const END_TIME = 18;
+    const numOfSlots = END_TIME - START_TIME + 1; // +1 is to include the closing time
+    const timeSlots = [
+        ...Array.from(Array(numOfSlots).keys()),
+    ].map((offset) => ({ hour: START_TIME + offset }));
+
     return (
         <div className="calendar-scheduler">
             <div className="header grid">
@@ -21,7 +28,14 @@ const Calendar: React.FC = () => {
             </div>
 
             <div className="body grid">
-                {<div className="time-column">{/* time slots */}</div>}
+                {
+                    <div className="time-column">
+                        {/* time slots */}
+                        {timeSlots.map((slot) => (
+                            <div className="timeslot header">{slot.hour}</div>
+                        ))}
+                    </div>
+                }
                 {week.map((d, idx) => (
                     <div className="time-column">{idx}</div>
                 ))}
