@@ -32,7 +32,9 @@ const Calendar: React.FC = () => {
                     <div className="time-column">
                         {/* time slots */}
                         {timeSlots.map((slot) => (
-                            <div className="timeslot header">{slot.hour}</div>
+                            <div className="timeslot header">{`${
+                                slot.hour <= 12 ? slot.hour : slot.hour % 12
+                            } ${slot.hour < 12 ? 'am' : 'pm'}`}</div>
                         ))}
                     </div>
                 }
