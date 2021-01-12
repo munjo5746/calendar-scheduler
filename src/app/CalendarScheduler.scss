@@ -1,0 +1,18 @@
+.calendar-scheduler {
+    box-sizing: border-box;
+    width: 70em;
+
+    border: 1px solid lightgray;
+
+    > .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        height: 3em;
+        line-height: 3em;
+        > .day {
+            text-align: center;
+        }
+    }
+}
