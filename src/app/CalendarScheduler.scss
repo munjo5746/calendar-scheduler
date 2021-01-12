@@ -4,15 +4,28 @@
 
     border: 1px solid lightgray;
 
-    > .header {
+    > .grid {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
 
-        height: 3em;
-        line-height: 3em;
-        > .day {
-            text-align: center;
+        &.header {
+            height: 3em;
+            line-height: 3em;
+
+            border-bottom: 1px solid lightgray;
+
+            > .day {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        &.body {
+            > .time-column {
+                flex: 1;
+                text-align: center;
+            }
         }
     }
 }
