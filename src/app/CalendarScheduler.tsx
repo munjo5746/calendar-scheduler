@@ -16,14 +16,20 @@ const Calendar: React.FC = () => {
         ...Array.from(Array(numOfSlots).keys()),
     ].map((offset) => ({ hour: START_TIME + offset }));
 
+    const [selectedDay, setSelectedDay] = React.useState<Date>();
+    const [selectedHour, setSelectedHour] = React.useState<{
+        hour: number;
+        section: 'first' | 'second';
+    }>();
+
+    const dateFormat = 'EEEEEE, MMM d';
+
     return (
         <div className="calendar-scheduler">
             <div className="header grid">
                 {<div className="day">{/* for time slots */}</div>}
                 {week.map((d) => (
-                    <div className="day">
-                        {dateFns.format(d, 'EEEEEE, MMM d')}
-                    </div>
+                    <div className="day">{dateFns.format(d, dateFormat)}</div>
                 ))}
             </div>
 
@@ -38,12 +44,45 @@ const Calendar: React.FC = () => {
                         ))}
                     </div>
                 }
-                {week.map((d, idx) => (
+                {week.map((d) => (
                     <div className="time-column">
-                        {timeSlots.map(() => (
+                        {timeSlots.map((timeslot) => (
                             <div className="timeslot selection">
-                                <div className="half"></div>
-                                <div className="half"></div>
+                                {(['first', 'second'] as (
+                                    | 'first'
+                                    | 'second'
+                                )[]).map((section) => {
+                                    return (
+                                        <div
+                                            key={`half-section-${section}`}
+                                            className={`half ${section} ${
+                                                !!selectedDay &&
+                                                dateFns.format(
+                                                    d,
+                                                    dateFormat,
+                                                ) ===
+                                                    dateFns.format(
+                                                        selectedDay,
+                                                        dateFormat,
+                                                    ) &&
+                                                timeslot.hour ===
+                                                    selectedHour?.hour &&
+                                                section === selectedHour.section
+                                                    ? 'selected'
+                                                    : `${d.valueOf()}-${selectedDay?.valueOf()}`
+                                            }`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+
+                                                setSelectedDay(d);
+                                                setSelectedHour({
+                                                    hour: timeslot.hour,
+                                                    section: section,
+                                                });
+                                            }}
+                                        ></div>
+                                    );
+                                })}
                             </div>
                         ))}
                     </div>
