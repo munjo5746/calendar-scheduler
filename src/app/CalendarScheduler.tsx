@@ -40,7 +40,7 @@ const Calendar: React.FC = () => {
                 }
                 {week.map((d, idx) => (
                     <div className="time-column">
-                        {timeSlots.map((slot) => (
+                        {timeSlots.map(() => (
                             <div className="timeslot selection">
                                 <div className="half"></div>
                                 <div className="half"></div>
