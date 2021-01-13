@@ -31,6 +31,19 @@
                     height: 4em;
                     line-height: 4em;
                     border-bottom: 1px solid lightgray;
+
+                    &.selection {
+                        display: flex;
+                        flex-direction: column;
+
+                        > * {
+                            flex: 1;
+                        }
+
+                        > .half:nth-child(1) {
+                            border-bottom: 1px dashed lightgray;
+                        }
+                    }
                 }
             }
         }
