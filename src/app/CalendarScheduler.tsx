@@ -3,6 +3,7 @@ import React from 'react';
 import * as dateFns from 'date-fns';
 
 import './CalendarScheduler.scss';
+import { Popover } from '@blueprintjs/core';
 
 const Calendar: React.FC = () => {
     const week: Date[] = [...Array.from(Array(7).keys())].map((idx) => {
@@ -24,10 +25,14 @@ const Calendar: React.FC = () => {
 
     const dateFormat = 'EEEEEE, MMM d';
 
+    const [showFormModal, toggleDisplayFormModal] = React.useState<boolean>(
+        false,
+    );
+
     return (
         <div className="calendar-scheduler">
             <div className="header grid">
-                {<div className="day">{/* for time slots */}</div>}
+                {<div className="day">{/* for time slot header */}</div>}
                 {week.map((d) => (
                     <div className="day">{dateFns.format(d, dateFormat)}</div>
                 ))}
@@ -53,34 +58,44 @@ const Calendar: React.FC = () => {
                                     | 'second'
                                 )[]).map((section) => {
                                     return (
-                                        <div
-                                            key={`half-section-${section}`}
-                                            className={`half ${section} ${
-                                                !!selectedDay &&
-                                                dateFns.format(
-                                                    d,
-                                                    dateFormat,
-                                                ) ===
+                                        <Popover
+                                            content={<div>content</div>}
+                                            interactionKind="click"
+                                        >
+                                            <div
+                                                key={`half-section-${section}`}
+                                                className={`half ${section} ${
+                                                    !!selectedDay &&
                                                     dateFns.format(
-                                                        selectedDay,
+                                                        d,
                                                         dateFormat,
-                                                    ) &&
-                                                timeslot.hour ===
-                                                    selectedHour?.hour &&
-                                                section === selectedHour.section
-                                                    ? 'selected'
-                                                    : `${d.valueOf()}-${selectedDay?.valueOf()}`
-                                            }`}
-                                            onClick={(e) => {
-                                                e.preventDefault();
+                                                    ) ===
+                                                        dateFns.format(
+                                                            selectedDay,
+                                                            dateFormat,
+                                                        ) &&
+                                                    timeslot.hour ===
+                                                        selectedHour?.hour &&
+                                                    section ===
+                                                        selectedHour.section
+                                                        ? 'selected'
+                                                        : ``
+                                                }`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
 
-                                                setSelectedDay(d);
-                                                setSelectedHour({
-                                                    hour: timeslot.hour,
-                                                    section: section,
-                                                });
-                                            }}
-                                        ></div>
+                                                    setSelectedDay(d);
+                                                    setSelectedHour({
+                                                        hour: timeslot.hour,
+                                                        section: section,
+                                                    });
+
+                                                    toggleDisplayFormModal(
+                                                        true,
+                                                    );
+                                                }}
+                                            ></div>
+                                        </Popover>
                                     );
                                 })}
                             </div>
