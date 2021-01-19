@@ -1,9 +1,10 @@
 import React from 'react';
-
+import { Popover } from '@blueprintjs/core';
 import * as dateFns from 'date-fns';
 
+import AppointmentForm from './AppointmentForm';
+
 import './CalendarScheduler.scss';
-import { Popover } from '@blueprintjs/core';
 
 const Calendar: React.FC = () => {
     const week: Date[] = [...Array.from(Array(7).keys())].map((idx) => {
@@ -59,8 +60,9 @@ const Calendar: React.FC = () => {
                                 )[]).map((section) => {
                                     return (
                                         <Popover
-                                            content={<div>content</div>}
+                                            content={<AppointmentForm />}
                                             interactionKind="click"
+                                            position="right-top"
                                         >
                                             <div
                                                 key={`half-section-${section}`}
